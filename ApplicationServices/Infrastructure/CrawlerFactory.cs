@@ -12,7 +12,7 @@ namespace MovieCrawler.ApplicationServices.Infrastructure
 {
     class CrawlerFactory : ICrawlerFactory
     {
-        public ICrawler Create(Uri uri)
+        public IContentCrawler Create(Uri uri)
         {
             switch (uri.Host.ToLowerInvariant())
             {
@@ -38,7 +38,7 @@ namespace MovieCrawler.ApplicationServices.Infrastructure
             throw new NotImplementedException();
         }
 
-        public bool TryCreate(Uri uri, out ICrawler crawler)
+        public bool TryCreate(Uri uri, out IContentCrawler crawler)
         {
             try
             {

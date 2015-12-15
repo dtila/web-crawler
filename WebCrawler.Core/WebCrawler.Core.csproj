@@ -45,7 +45,7 @@
     <Compile Include="Browser\IHtmlElement.cs" />
     <Compile Include="Data\Entity.cs" />
     <Compile Include="DependencyResolver.cs" />
-    <Compile Include="ICrawler.cs" />
+    <Compile Include="IContentCrawler.cs" />
     <Compile Include="IHttpResponseMonitor.cs" />
     <Compile Include="ILinkScrambler.cs" />
     <Compile Include="Infrastructure\ICrawlerFactory.cs" />

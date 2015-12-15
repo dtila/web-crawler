@@ -16,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using MovieCrawler.Domain.Data;
+using WebCrawler.Core;
 
 namespace MovieCrawler.ApplicationServices.MovieProviders
 {
@@ -24,10 +25,14 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
         private static readonly string PageFormat = "http://bratu-marian.ro/filmenoi/?paged={0}";
 
         public string Name { get { return "BratuMarian.ro"; } }
-        public Uri Uri { get; private set; }
 
         public BratuMarianMovieProvider()
         {
+        }
+
+        public InspectMethodType GetInspectMethod(Uri uri)
+        {
+            return InspectMethodType.None;
         }
 
         public IPageSet EnumerateFromPage(int startPage)

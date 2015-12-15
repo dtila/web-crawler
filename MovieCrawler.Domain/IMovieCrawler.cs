@@ -8,7 +8,7 @@ using WebCrawler.Core;
 
 namespace MovieCrawler.Domain
 {
-    public interface IMovieCrawler : ICrawler
+    public interface IMovieCrawler : IContentCrawler
     {
         void AppendTo(MovieBuilder builder, PageInspectSubscription subscription);
         //void BuildTo(MovieBuilder builder);

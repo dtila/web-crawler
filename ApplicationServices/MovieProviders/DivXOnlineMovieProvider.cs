@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using MovieCrawler.Domain.Data;
+using WebCrawler.Core;
 
 namespace MovieCrawler.ApplicationServices.MovieProviders
 {
@@ -24,9 +25,10 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
         private static readonly Regex MovieInfoRegex = new Regex("categoria:\\s+(.+)\\s", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         public string Name { get { return "divxonline.ro"; } }
-        public Uri Uri { get; private set; }
-        public DivXOnlineMovieProvider()
+        
+        public InspectMethodType GetInspectMethod(Uri uri)
         {
+            return InspectMethodType.None;
         }
 
         public IPageSet EnumerateFromPage(int startPage)

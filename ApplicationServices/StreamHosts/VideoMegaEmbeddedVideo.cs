@@ -13,6 +13,7 @@ using MovieCrawler.Domain;
 using WebCrawler.Logging;
 using WebCrawler;
 using MovieCrawler.Domain.Data;
+using WebCrawler.Core;
 
 namespace MovieCrawler.ApplicationServices.StreamHosts
 {
@@ -40,12 +41,15 @@ namespace MovieCrawler.ApplicationServices.StreamHosts
         private ILogger logger;
         private Uri uri;
 
-        public Uri Uri { get; private set; }
-
         public VideoMegaEmbeddedVideo(Uri uri)
         {
             logger = LoggerFactory.Create("videomega.tv");
             this.uri = uri;
+        }
+
+        public InspectMethodType GetInspectMethod(Uri uri)
+        {
+            return InspectMethodType.None;
         }
 
         public void AppendTo(MovieBuilder builder, PageInspectSubscription subscription)

@@ -1,17 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieHtmlParser", "MovieHtmlParser\MovieHtmlParser.csproj", "{DC9AF4C2-BC28-4A16-9291-AEE2DB4266DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieCrawler.ConsoleTester", "MovieHtmlParser\MovieCrawler.ConsoleTester.csproj", "{DC9AF4C2-BC28-4A16-9291-AEE2DB4266DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCrawlerService", "WebCrawlerService\WebCrawlerService.csproj", "{15B3E0D2-6217-493A-A690-158C497F5318}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProxyProviderLibrary", "ProxyProviderLibrary\ProxyProviderLibrary.csproj", "{AEA5FE53-CE89-445D-B07C-62F7C9EA0E03}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationServices", "ApplicationServices\ApplicationServices.csproj", "{0F31F1F1-874A-4DE5-B2B7-67C60D955190}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Old", "Old", "{8008885E-E6F1-4D95-9949-5E65EDD60BEB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebCrawler.Core", "WebCrawler.Core\WebCrawler.Core.csproj", "{23C77CE4-93E1-41B3-B927-80B24BA9C6CF}"
 EndProject
@@ -27,8 +25,8 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DC9AF4C2-BC28-4A16-9291-AEE2DB4266DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC9AF4C2-BC28-4A16-9291-AEE2DB4266DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC9AF4C2-BC28-4A16-9291-AEE2DB4266DC}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{DC9AF4C2-BC28-4A16-9291-AEE2DB4266DC}.Debug|Any CPU.Build.0 = Debug|x86
 		{DC9AF4C2-BC28-4A16-9291-AEE2DB4266DC}.Debug|x86.ActiveCfg = Debug|x86
 		{DC9AF4C2-BC28-4A16-9291-AEE2DB4266DC}.Debug|x86.Build.0 = Debug|x86
 		{DC9AF4C2-BC28-4A16-9291-AEE2DB4266DC}.Release|Any CPU.ActiveCfg = Release|Any CPU

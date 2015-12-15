@@ -9,7 +9,7 @@ namespace WebCrawler.Infrastructure
 {
     public interface ICrawlerFactory
     {
-        ICrawler Create(Uri uri);
-        bool TryCreate(Uri uri, out ICrawler crawler);
+        IContentCrawler Create(Uri uri);
+        bool TryCreate(Uri uri, out IContentCrawler crawler);
     }
 }

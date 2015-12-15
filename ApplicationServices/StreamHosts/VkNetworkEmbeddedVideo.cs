@@ -9,6 +9,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using WebCrawler.Core;
 
 namespace MovieCrawler.ApplicationServices.StreamHosts
 {
@@ -24,13 +25,15 @@ namespace MovieCrawler.ApplicationServices.StreamHosts
         };
         private Uri uri;
 
-        public Uri Uri { get; private set; }
-
         public VkNetworkEmbeddedVideo(Uri uri)
         {
             this.uri = uri;
         }
 
+        public InspectMethodType GetInspectMethod(Uri uri)
+        {
+            return InspectMethodType.None;
+        }
 
         public void AppendTo(MovieBuilder builder, PageInspectSubscription subscription)
         {

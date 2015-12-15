@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using MovieCrawler.Domain.Data;
+using WebCrawler.Core;
 
 namespace MovieCrawler.ApplicationServices.MovieProviders
 {
@@ -19,10 +20,14 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
 
         public string Name { get { return "TopFilme2013.net"; } }
 
-        public Uri Uri { get; private set; }
 
         public FilmeOnline2013MovieProvider()
         {
+        }
+
+        public InspectMethodType GetInspectMethod(Uri uri)
+        {
+            return InspectMethodType.None;
         }
 
         public IPageSet EnumerateFromPage(int startPage)

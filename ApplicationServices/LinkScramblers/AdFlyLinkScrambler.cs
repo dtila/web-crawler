@@ -19,6 +19,11 @@ namespace MovieCrawler.ApplicationServices.LinkScramblers
             this.uri = uri;
         }
 
+        public InspectMethodType GetInspectMethod(Uri uri)
+        {
+            return InspectMethodType.None;
+        }
+
         public Task<Uri> GetLinkAsync()
         {
             return null;
@@ -86,5 +91,7 @@ namespace MovieCrawler.ApplicationServices.LinkScramblers
             public SHDocVw.InternetExplorer Browser { get; set; }
             public TaskCompletionSource<MovieInfo> TaskCompletionSource { get; set; }
         }*/
+
+
     }
 }

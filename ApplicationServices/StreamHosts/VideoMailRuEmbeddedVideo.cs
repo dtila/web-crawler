@@ -10,6 +10,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WebCrawler.Core;
 
 namespace MovieCrawler.ApplicationServices.StreamHosts
 {
@@ -17,11 +18,15 @@ namespace MovieCrawler.ApplicationServices.StreamHosts
     {
         private static readonly Regex VideoRegex = new Regex(@"videoSrc\s?=\s?\""([^\""]+)\""", RegexOptions.Compiled);
         private Uri uri;
-        public Uri Uri { get; private set; }
 
         public VideoMailRuEmbeddedVideo(Uri uri)
         {
             this.uri = uri;
+        }
+
+        public InspectMethodType GetInspectMethod(Uri uri)
+        {
+            return InspectMethodType.None;
         }
 
         public void AppendTo(MovieBuilder builder, PageInspectSubscription subscription)
@@ -29,27 +34,24 @@ namespace MovieCrawler.ApplicationServices.StreamHosts
             throw new NotImplementedException();
         }
 
-        public Task<MovieStream> GetStreamSetAsync()
+        public async Task<MovieStream> GetStreamSetAsync()
         {
-            return WebHttp.ProxyRetryGuardedSection(async () =>
+            var request = WebHttp.CreateRequest(uri);
+            request.CookieContainer = new System.Net.CookieContainer();
+            var response = await WebHttp.GetWebResponse(request);
+
+            var streamInfo = new MovieStream();
+            streamInfo.Cookies = request.CookieContainer.GetCookies(uri);
+
+            using (var sr = new StreamReader(response.GetResponseStream()))
             {
-                var request = WebHttp.CreateRequest(uri);
-                request.CookieContainer = new System.Net.CookieContainer();
-                var response = await request.GetResponseAsync();
+                var match = VideoRegex.Match(sr.ReadToEnd());
+                if (!match.Success)
+                    throw new InvalidDOMStructureException("Unable to find the video source uri");
+                streamInfo.VideoStreams.Add(new VideoStream { AVStream = match.Groups[1].Value });
+            }
 
-                var streamInfo = new MovieStream();
-                streamInfo.Cookies = request.CookieContainer.GetCookies(uri);
-
-                using (var sr = new StreamReader(response.GetResponseStream()))
-                {
-                    var match = VideoRegex.Match(sr.ReadToEnd());
-                    if (!match.Success)
-                        throw new InvalidDOMStructureException("Unable to find the video source uri");
-                    streamInfo.VideoStreams.Add(new VideoStream { AVStream = match.Groups[1].Value });
-                }
-
-                return streamInfo;
-            });
+            return streamInfo;
         }
     }
 }
