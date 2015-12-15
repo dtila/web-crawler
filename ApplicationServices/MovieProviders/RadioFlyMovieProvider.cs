@@ -1,77 +1,43 @@
-﻿using System;
+﻿using MovieCrawler.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using MovieCrawler.Domain.Data;
+using MovieCrawler.Domain.Model;
+using WebCrawler.Core;
 
 namespace MovieCrawler.ApplicationServices.MovieProviders
 {
-    /*class RadioFlyMovieProvider : BaseMovieProvider
+    class RadioFlyMovieProvider : IMovieProvider
     {
         private static readonly string PageAddress = "http://www.radiofly.ws/filme-online-gratis.php";
 
-        public override string Name
+        public string Name
         {
             get { return "RadioFly"; }
         }
 
-        public override Task<Commons.MovieInfo> GetMovieInfoAsync(Uri uri)
+        public Task AddToBuilder(MovieBuilder builder, BasicMovieInfo movie)
         {
             throw new NotImplementedException();
         }
 
-        public override IEnumerator<Task<ICollection<BasicMovieInfo>>> GetEnumerator()
+        public void AppendTo(MovieBuilder builder, BrowserPageInspectSubscription subscription)
         {
-            return new MoviesEnumerator(this);
+            throw new NotImplementedException();
         }
 
-        private async Task<ICollection<BasicMovieInfo>> ParseMovies()
+        public IPageSet EnumerateFromPage(int page)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
-
-        class MoviesEnumerator : IEnumerator<Task<ICollection<BasicMovieInfo>>>
+        public InspectMethodType GetInspectMethod(Uri uri)
         {
-            private RadioFlyMovieProvider _provider;
-            private bool _finished;
-
-            public MoviesEnumerator(RadioFlyMovieProvider provider)
-            {
-                _provider = provider;
-                _finished = false;
-            }
-
-            public Task<ICollection<BasicMovieInfo>> Current { get; private set; }
-
-            object System.Collections.IEnumerator.Current
-            {
-                get { return Current; }
-            }
-
-            public bool MoveNext()
-            {
-                if (_finished)
-                {
-                    Current = null;
-                    return false;
-                }
-
-                Current = _provider.ParseMovies();
-                _finished = true;
-                return true;
-            }
-
-            public void Reset()
-            {
-                _finished = false;
-            }
-
-            public void Dispose()
-            {
-            }
+            return InspectMethodType.Raw;
         }
-
-    }*/
+    }
 }

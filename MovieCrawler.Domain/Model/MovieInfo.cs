@@ -51,12 +51,15 @@ namespace MovieCrawler.Domain.Model
             this.title = title;
             this.year = year;
             this.Link = link;
+            Verify();
         }
 
         public BasicMovieInfo(string title, Uri link)
         {
-            if (!MovieHelpers.Extract(title, out title, out year))
+            if (!MovieHelpers.CanExtract(title, out this.title, out this.year))
                 throw new ArgumentException("The title is not in a valid format allowed");
+            this.Link = link;
+            Verify();
         }
 
         public BasicMovieInfo(BasicMovieInfo movieInfo)
@@ -64,6 +67,16 @@ namespace MovieCrawler.Domain.Model
             title = movieInfo.Title;
             year = movieInfo.Year;
             this.Link = movieInfo.Link;
+            Verify();
         }
+
+        private void Verify()
+        {
+            if (string.IsNullOrEmpty(title))
+                throw new ArgumentException("Empty or null title");
+            if (Link == null)
+                throw new ArgumentNullException("link");
+        }
+
     }
 }

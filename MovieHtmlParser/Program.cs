@@ -10,6 +10,7 @@ using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebCrawler;
 using WebCrawler.Infrastructure;
@@ -20,7 +21,7 @@ namespace MovieHtmlParser
     {
         static Program()
         {
-            DependencyResolver.Current = new Infrastructure.TinyIoCDependancyResolver();
+            DependencyResolver.Current = new Infrastructure.SimpleInjectorDependencyResolver();
             DependencyResolver.Register<IHttpFactory>(new Infrastructure.HttpFactory());
             DependencyResolver.Register<ILoggerFactory>(new Infrastructure.LoggerFactory());
         }
@@ -28,13 +29,13 @@ namespace MovieHtmlParser
         [STAThread]
         static void Main(string[] args)
         {
-            TestProvider();
+            TestProvider().Wait();
             Console.ReadLine();
         }
 
-        static async void TestProvider()
+        static async Task TestProvider()
         {
-            var provider = new DivXOnlineMovieProvider();
+            var provider = new FilmeOnline2013MovieProvider();
             var enumerator = provider.EnumerateFromPage(1);
 
             foreach (var pageTask in enumerator)

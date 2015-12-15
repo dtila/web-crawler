@@ -40,6 +40,7 @@ namespace MovieCrawler.Domain.Data
 
         public void Enqueue(Uri movieSetUri)
         {
+            // TODO: Enqueue only the browser requests
             var factory = DependencyResolver.Resolve<IHttpFactory>();
             var request = factory.Create(movieSetUri);
             request.Method = "HEAD";
@@ -65,7 +66,7 @@ namespace MovieCrawler.Domain.Data
             //throw new NotImplementedException();
         }
 
-        internal void OnPageLoaded(PageInspectSubscription pageSubscription)
+        internal void OnPageLoaded(BrowserPageInspectSubscription pageSubscription)
         {
             var crawler = CreateMovieCrawler(pageSubscription.CurrentUri);
             crawler.AppendTo(this, pageSubscription);

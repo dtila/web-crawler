@@ -54,7 +54,7 @@ namespace MovieCrawler.Domain.Data
                     {
                         runningPages.Add(new RunningPage(uri, builder, browser));
                     }
-                    browser.Navigate(uri).ContinueWith(task => PageLoaded(new PageInspectSubscription(this, uri, browser, builder)));
+                    browser.Navigate(uri).ContinueWith(task => PageLoaded(new BrowserPageInspectSubscription(this, uri, browser, builder)));
                     return;
                 }
                 catch (Exception ex)
@@ -85,7 +85,7 @@ namespace MovieCrawler.Domain.Data
             availableWorkers.Enqueue(browser);
         }
 
-        private void PageLoaded(PageInspectSubscription pageInspectSubscription)
+        private void PageLoaded(BrowserPageInspectSubscription pageInspectSubscription)
         {
             pageInspectSubscription.Inspect();
 
@@ -131,7 +131,7 @@ namespace MovieCrawler.Domain.Data
     /// <summary>
     /// Represent an object that can be used to persist the inspection of a page, and to be disposed when is not needed
     /// </summary>
-    public class PageInspectSubscription : IDisposable
+    public class BrowserPageInspectSubscription : IDisposable
     {
         private MovieBuilderPool pool;
         private IBrowser browser;
@@ -142,7 +142,7 @@ namespace MovieCrawler.Domain.Data
         public Uri CurrentUri { get { return browser.Uri; } }
         public IBrowserPage Page { get { return browser.Page; } }
 
-        internal PageInspectSubscription(MovieBuilderPool pool, Uri originalUri, IBrowser browser, MovieBuilder builder)
+        internal BrowserPageInspectSubscription(MovieBuilderPool pool, Uri originalUri, IBrowser browser, MovieBuilder builder)
         {
             this.builder = builder;
             this.originalUri = originalUri;

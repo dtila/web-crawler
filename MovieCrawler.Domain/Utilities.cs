@@ -23,7 +23,7 @@ namespace MovieCrawler.Domain
 
     public static class MovieHelpers
     {
-        public static bool Extract(string rawTitle, out string title, out int? year)
+        public static bool CanExtract(string rawTitle, out string title, out int? year)
         {
             title = null;
             year = null;
@@ -34,7 +34,7 @@ namespace MovieCrawler.Domain
             if (!match.Success)
                 return false;
 
-            title = match.Groups[1].Value;
+            title = match.Groups[1].Value.Trim();
             year = int.Parse(match.Groups[2].Value);
             return true;
         }

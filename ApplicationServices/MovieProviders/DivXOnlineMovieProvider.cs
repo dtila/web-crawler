@@ -45,7 +45,7 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             return GetMovieInfoAsync(builder, movie.Link);
         }
 
-        public void AppendTo(MovieBuilder builder, PageInspectSubscription subscription)
+        public void AppendTo(MovieBuilder builder, BrowserPageInspectSubscription subscription)
         {
             throw new NotImplementedException();
         }

@@ -35,7 +35,7 @@ namespace MovieCrawler.ApplicationServices.StreamHosts
             return InspectMethodType.None;
         }
 
-        public void AppendTo(MovieBuilder builder, PageInspectSubscription subscription)
+        public void AppendTo(MovieBuilder builder, BrowserPageInspectSubscription subscription)
         {
             throw new NotImplementedException();
         }

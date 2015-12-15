@@ -44,7 +44,7 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             return Build(builder, movie.Link);
         }
 
-        public void AppendTo(MovieBuilder builder, PageInspectSubscription subscription)
+        public void AppendTo(MovieBuilder builder, BrowserPageInspectSubscription subscription)
         {
             throw new NotImplementedException();
         }
@@ -74,20 +74,14 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             }
         }
 
-        private static BasicMovieInfo CreateMovieInfoSummary(string link, string title)
-        {
-            if (string.IsNullOrEmpty(title))
-                throw new InvalidDOMStructureException("Empty title");
-            if (string.IsNullOrEmpty(link))
-                throw new InvalidDOMStructureException("Empty link");
-
-            return new BasicMovieInfo(title, new Uri(link));
-        }
 
         class SummaryMovieInfo : BasicMovieInfo
         {
-            public SummaryMovieInfo(string title, Uri uri) : base(title, uri)
+            public Uri CoverUri;
+
+            public SummaryMovieInfo(string title, Uri uri, Uri coverUri) : base(title, uri)
             {
+                this.CoverUri = uri;
             }
         }
 
@@ -128,10 +122,11 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
                 var list = new List<BasicMovieInfo>();
                 foreach (var movie in html.DocumentNode.SelectNodes("//div[@class='smooth_slideri']/a"))
                 {
-                    var movieSummary = CreateMovieInfoSummary(movie.GetAttributeValue("href", null), movie.GetAttributeValue("title", null));
-                    var img = movie.SelectSingleNode("img[@src]").ThrowExceptionIfNotExists("Tag 'img' not found");
+                    var link = movie.GetAttributeValue("href", null);
+                    var title = movie.GetAttributeValue("title", null);
+                    var img = movie.SelectSingleNode("img[@src]").ThrowExceptionIfNotExists("Movie cover not found").InnerText;
 
-                    list.Add(movieSummary);
+                    list.Add(new SummaryMovieInfo(title, new Uri(link), new Uri(img)));
                 }
                 return list;
             }
@@ -141,8 +136,10 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
                 var list = new List<BasicMovieInfo>();
                 foreach (var movie in html.DocumentNode.SelectNodes("//a[@class='entry-thumb2']"))
                 {
-                    var movieSummary = CreateMovieInfoSummary(movie.GetAttributeValue("href", null), movie.GetAttributeValue("title", null));
-                    list.Add(movieSummary);
+                    var link = movie.GetAttributeValue("href", null);
+                    var title = movie.GetAttributeValue("title", null);
+
+                    list.Add(new SummaryMovieInfo(title, new Uri(link), null));
                 }
                 return list;
             }
