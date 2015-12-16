@@ -91,7 +91,7 @@
   <ItemGroup>
     <Compile Include="Infrastructure\HttpFactory.cs" />
     <Compile Include="Infrastructure\LoggerFactory.cs" />
-    <Compile Include="Infrastructure\TinyIoCDependancyResolver.cs" />
+    <Compile Include="Infrastructure\DependencyResolver.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

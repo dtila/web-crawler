@@ -38,7 +38,7 @@ namespace MovieCrawler.Domain.Data
             movieInfo.Streams.Add(stream);
         }
 
-        public void Enqueue(Uri movieSetUri)
+        public void Enqueue(IMovieProvider sender, Uri movieSetUri)
         {
             // TODO: Enqueue only the browser requests
             var factory = DependencyResolver.Resolve<IHttpFactory>();
@@ -59,6 +59,27 @@ namespace MovieCrawler.Domain.Data
 
                 CheckWebResponse(movieSetUri, task.Result);
             }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        public void Enqueue(IMovieStreamHost sender, Uri uri)
+        {
+            var result = sender.GetInspectMethod(uri);
+            //if (result == InspectMethodType.)
+        }
+
+        private bool RawContent(IMovieCrawler sender, Uri uri, out InspectMethodType inspectType)
+        {
+            inspectType = sender.GetInspectMethod(uri);
+            if (inspectType == InspectMethodType.None)
+                throw new InvalidOperationException(string.Format("The crawler '{0}' can not handle the '{1}' address", sender, uri));
+
+            if ((inspectType & InspectMethodType.Browser) != 0)
+            {
+                pool.Enqueue(uri, this);
+                return false;
+            }
+
+            return true;
         }
 
         private void CheckWebResponse(Uri originalUri, HttpWebResponse result)

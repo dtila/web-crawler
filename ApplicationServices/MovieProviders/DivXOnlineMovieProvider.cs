@@ -50,7 +50,7 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             throw new NotImplementedException();
         }
 
-        private static async Task GetMovieInfoAsync(MovieBuilder builder, Uri uri)
+        private async Task GetMovieInfoAsync(MovieBuilder builder, Uri uri)
         {
             var html = await WebHttp.GetHtmlDocument(uri);
 
@@ -76,7 +76,7 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             foreach (var video in html.DocumentNode.SelectNodes("//div[@class='block-container']/center/div/iframe")
                                                    .ThrowExceptionIfNotExists("Unable to find the movie root"))
             {
-                builder.Enqueue(HtmlHelpers.GetEmbededUri(video));
+                builder.Enqueue(this, HtmlHelpers.GetEmbededUri(video));
             }
         }
 

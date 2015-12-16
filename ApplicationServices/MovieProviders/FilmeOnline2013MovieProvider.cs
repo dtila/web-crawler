@@ -70,7 +70,7 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             foreach (var entry in html.DocumentNode.SelectNodes("//div[@class='entry-embed']/iframe")
                             .ThrowExceptionIfNotExists("Unable to find the movie streams"))
             {
-                builder.Enqueue(HtmlHelpers.GetEmbededUri(entry));
+                builder.Enqueue(this, HtmlHelpers.GetEmbededUri(entry));
             }
         }
 
