@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using MovieCrawler.Domain.Data;
 using MovieCrawler.Domain.Model;
 using WebCrawler.Core;
+using WebCrawler.Data;
 
 namespace MovieCrawler.ApplicationServices.MovieProviders
 {
@@ -20,12 +21,12 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             get { return "RadioFly"; }
         }
 
-        public Task AddToBuilder(MovieBuilder builder, BasicMovieInfo movie)
+        public void AppendTo(IContentBuilder builder)
         {
             throw new NotImplementedException();
         }
 
-        public void AppendTo(MovieBuilder builder, BrowserPageInspectSubscription subscription)
+        public Task AddToBuilder(MovieBuilder builder, BasicMovieInfo movie)
         {
             throw new NotImplementedException();
         }
@@ -33,11 +34,6 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
         public IPageSet EnumerateFromPage(int page)
         {
             throw new NotImplementedException();
-        }
-
-        public InspectMethodType GetInspectMethod(Uri uri)
-        {
-            return InspectMethodType.Raw;
         }
     }
 }

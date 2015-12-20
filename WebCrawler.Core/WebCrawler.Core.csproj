@@ -44,6 +44,9 @@
     <Compile Include="Browser\IBrowserPage.cs" />
     <Compile Include="Browser\IHtmlElement.cs" />
     <Compile Include="Data\Entity.cs" />
+    <Compile Include="Data\IBrowserPageInspectSubscription.cs" />
+    <Compile Include="Data\IContentBuilder.cs" />
+    <Compile Include="Data\IContent.cs" />
     <Compile Include="DependencyResolver.cs" />
     <Compile Include="IContentCrawler.cs" />
     <Compile Include="IHttpResponseMonitor.cs" />

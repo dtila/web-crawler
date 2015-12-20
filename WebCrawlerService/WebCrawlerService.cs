@@ -167,15 +167,15 @@ namespace WebCrawlerService
             }
             catch (InvalidDOMStructureException ex)
             {
-                log.FatalException("The page structure has been changed", ex);
+                log.Fatal("The page structure has been changed", ex);
             }
             catch (NotImplementedException ex)
             {
-                log.FatalException("Feature not implemented yet", ex);
+                log.Fatal("Feature not implemented yet", ex);
             }
             catch (Exception ex)
             {
-                log.ErrorException("Unexpected error", ex);
+                log.Error("Unexpected error", ex);
             }
             finally
             {

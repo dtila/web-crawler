@@ -1,4 +1,7 @@
 ﻿using MovieCrawler.ApplicationServices.MovieProviders;
+using MovieCrawler.Core;
+using MovieCrawler.Domain;
+using MovieCrawler.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebCrawler;
+using WebCrawler.Browser;
 using WebCrawler.Infrastructure;
 
 namespace MovieHtmlParser
@@ -24,12 +28,20 @@ namespace MovieHtmlParser
             DependencyResolver.Current = new Infrastructure.SimpleInjectorDependencyResolver();
             DependencyResolver.Register<IHttpFactory>(new Infrastructure.HttpFactory());
             DependencyResolver.Register<ILoggerFactory>(new Infrastructure.LoggerFactory());
+            DependencyResolver.Register<IMoviesRepository>(new Infrastructure.MoviesRepository());
+
+            DependencyResolver.Register<IMovieProvider>(new FilmeOnline2013MovieProvider());
+
+            DependencyResolver.Register<IBrowserFactory>(new Infrastructure.BrowserFactory());
+
+            MovieCrawler.ApplicationServices.ApplicationServices.Init();
         }
 
         [STAThread]
         static void Main(string[] args)
         {
-            TestProvider().Wait();
+            Download().Wait();
+            //TestProvider().Wait();
             Console.ReadLine();
         }
 
@@ -46,6 +58,13 @@ namespace MovieHtmlParser
                     Debug.WriteLine(item.Title);       
                 }
             }
+        }
+
+        static async Task Download()
+        {
+            var service = DependencyResolver.Resolve<CrawlerService>();
+            var movieProvider = new MovieCrawler.Domain.Model.MovieProvider("Empty");
+            await service.ParseProviderNewMovies(movieProvider);
         }
     }
 }

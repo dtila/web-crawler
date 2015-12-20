@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebCrawler.Data;
 
 namespace WebCrawler.Core
 {
     public interface IContentCrawler
     {
-        InspectMethodType GetInspectMethod(Uri uri);
+        void AppendTo(IContentBuilder builder);
     }
 
     [Flags]

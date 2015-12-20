@@ -4,10 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebCrawler.Data;
 
 namespace MovieCrawler.Domain.Model
 {
-    [DebuggerDisplay("{Description}")]
+    [DebuggerDisplay("{Title}")]
     public class MovieInfo : BasicMovieInfo
     {
         public string Description { get; set; }
@@ -37,7 +38,7 @@ namespace MovieCrawler.Domain.Model
 
 
     [DebuggerDisplay("{Title}")]
-    public class BasicMovieInfo
+    public class BasicMovieInfo : IContent
     {
         private string title;
         private int? year;
@@ -46,6 +47,7 @@ namespace MovieCrawler.Domain.Model
         public int? Year { get { return year; } }
         public Uri Link { get; private set; }
 
+        public Uri Uri { get { return Link; } }
         public BasicMovieInfo(string title, int? year, Uri link)
         {
             this.title = title;
@@ -78,5 +80,9 @@ namespace MovieCrawler.Domain.Model
                 throw new ArgumentNullException("link");
         }
 
+        public virtual void AddToBuilder(IContentBuilder builder)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

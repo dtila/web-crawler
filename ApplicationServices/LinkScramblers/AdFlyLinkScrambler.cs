@@ -1,4 +1,6 @@
 ﻿using MovieCrawler.ApplicationServices.Contracts;
+using MovieCrawler.Domain;
+using MovieCrawler.Domain.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,92 +8,52 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WebCrawler.Core;
+using WebCrawler.Data;
 
 namespace MovieCrawler.ApplicationServices.LinkScramblers
 {
     class AdFlyLinkScrambler : ILinkScrambler
     {
         private Uri uri;
-        public Uri Uri { get; private set; }
+        private IContentBuilder builder;
+        private TaskCompletionSource<Uri> taskCompletionSource;
         
         public AdFlyLinkScrambler(Uri uri)
         {
             this.uri = uri;
-        }
-
-        public InspectMethodType GetInspectMethod(Uri uri)
-        {
-            return InspectMethodType.None;
+            taskCompletionSource = new TaskCompletionSource<Uri>();
         }
 
         public Task<Uri> GetLinkAsync()
         {
-            return null;
+            if (builder == null)
+                throw new InvalidOperationException("AdFly scrambler must be added to a content builder before obtaining a link");
+            builder.Enqueue(new BrowserContentRequest(uri, GetHostedLinkAsync));
+            return taskCompletionSource.Task;
         }
 
-        /*
-        public Task<MovieInfo> GetMovieInfoAsync(Uri uri)
+        public void AppendTo(IContentBuilder builder)
         {
-            var tcs = new TaskCompletionSource<MovieInfo>();
-            var ie = new SHDocVw.InternetExplorer();
-            ie.Visible = true;
-            ie.DocumentComplete += (object pDisp, ref object URL) =>
-            {
-                ThreadPool.QueueUserWorkItem(PageDocumentComplete, new DocumentCompleteState
-                {
-                    Browser = ie,
-                    TaskCompletionSource = tcs
-                });
-            };
-            ie.Navigate(uri.ToString());
-            return tcs.Task;
+            this.builder = builder;
         }
 
-        private async void PageDocumentComplete(object state)
-        {
-            var requestState = state as DocumentCompleteState;
-
-            try
-            {
-                var url = await GetHostedLinkAsync(requestState.Browser.Document as mshtml.HTMLDocument);
-                // adf.ly does not hosts movies, but instead it hosts another link, so we need to forward the link and the result
-                var crawler = CrawlingFactory.CreateMovieCrawler(url);
-                crawler.ProxyCreateDelegate = this.ProxyCreateDelegate;
-                requestState.TaskCompletionSource.SetResult(await crawler.GetMovieInfoAsync(url));
-            }
-            catch (Exception ex)
-            {
-                requestState.TaskCompletionSource.SetException(ex);
-            }
-            finally
-            {
-                requestState.Browser.Quit();
-            }
-        }
-
-        private async Task<Uri> GetHostedLinkAsync(mshtml.HTMLDocument document)
+        private async Task GetHostedLinkAsync(IBrowserPageInspectSubscription subscription)
         {
             for (int i = 0; i < 10; i++, await Task.Delay(1000)) //max number of retries: 10 seconds
             {
-                var elem = document.getElementById("skip_button");
+                var elem = subscription.Page.Root.Query("#skip_button");
                 if (elem != null)
                 {
-                    var href = elem.getAttribute("href") as string;
+                    var href = elem.GetAttribute("href");
                     if (!string.IsNullOrEmpty(href))
-                        return new Uri(href);
+                    {
+                        taskCompletionSource.SetResult(new Uri(href));
+                        return;
+                    }
                 }
             }
 
-            throw new InvalidDOMStructureException("Unable to find the 'skip_button' element");
+            taskCompletionSource.SetException(new InvalidDOMStructureException("Unable to find the 'skip_button' element"));
         }
-
-
-        class DocumentCompleteState
-        {
-            public SHDocVw.InternetExplorer Browser { get; set; }
-            public TaskCompletionSource<MovieInfo> TaskCompletionSource { get; set; }
-        }*/
-
-
     }
 }

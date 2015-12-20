@@ -61,7 +61,7 @@ namespace MovieCrawler.ApplicationServices
 
                     return html;
                 }
-                catch (WebException ex)
+                catch (WebException)
                 {
                     if (ResponseMonitor != null)
                         ResponseMonitor.Fail(request.Address);

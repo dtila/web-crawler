@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web;
 using MovieCrawler.Domain.Data;
 using WebCrawler.Core;
+using WebCrawler.Data;
 
 namespace MovieCrawler.ApplicationServices.MovieProviders
 {
@@ -23,11 +24,6 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
 
         public FilmeOnline2013MovieProvider()
         {
-        }
-
-        public InspectMethodType GetInspectMethod(Uri uri)
-        {
-            return InspectMethodType.None;
         }
 
         public IPageSet EnumerateFromPage(int startPage)
@@ -43,10 +39,9 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
 
             return Build(builder, movie.Link);
         }
-
-        public void AppendTo(MovieBuilder builder, BrowserPageInspectSubscription subscription)
+        public void AppendTo(IContentBuilder builder)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException("A movie provider can not be added directly to a builder");
         }
 
         private async Task Build(MovieBuilder builder, Uri uri)
@@ -73,7 +68,6 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
                 builder.Enqueue(this, HtmlHelpers.GetEmbededUri(entry));
             }
         }
-
 
         class SummaryMovieInfo : BasicMovieInfo
         {
@@ -124,9 +118,9 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
                 {
                     var link = movie.GetAttributeValue("href", null);
                     var title = movie.GetAttributeValue("title", null);
-                    var img = movie.SelectSingleNode("img[@src]").ThrowExceptionIfNotExists("Movie cover not found").InnerText;
+                    var img = movie.SelectSingleNode("img").ThrowExceptionIfNotExists("Movie cover not found");
 
-                    list.Add(new SummaryMovieInfo(title, new Uri(link), new Uri(img)));
+                    list.Add(new SummaryMovieInfo(title, new Uri(link), new Uri(img.GetAttributeValue("src", null))));
                 }
                 return list;
             }

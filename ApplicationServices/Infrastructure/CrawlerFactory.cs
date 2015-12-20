@@ -29,13 +29,9 @@ namespace MovieCrawler.ApplicationServices.Infrastructure
 
                 /// Link scrambler
                 case "adf.ly": return new AdFlyLinkScrambler(uri);
-
-
-                default:
-                    throw new NotImplementedException("Unable to create a stream crawler for the following address: " + uri.ToString());
             }
 
-            throw new NotImplementedException();
+            throw new NotImplementedException("Unable to create a crawler for the uri " + uri.ToString());
         }
 
         public bool TryCreate(Uri uri, out IContentCrawler crawler)

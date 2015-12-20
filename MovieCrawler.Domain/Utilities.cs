@@ -21,7 +21,7 @@ namespace MovieCrawler.Domain
         public static readonly Regex EnglishPageMatchRegex = new Regex(@"Page (\d+) of (\d+)", RegexOptions.Compiled);
     }
 
-    public static class MovieHelpers
+    static class MovieHelpers
     {
         public static bool CanExtract(string rawTitle, out string title, out int? year)
         {

@@ -13,6 +13,8 @@ namespace MovieCrawler.Domain.Model
         public IList<VideoStream> VideoStreams { get; set; }
         public IList<Caption> Captions { get; set; }
 
+        public DateTime? ExpirationDate { get; set; }
+
         public CookieCollection Cookies { get; set; }
         public IDictionary<string, string> Headers { get; set; }
 

@@ -89,9 +89,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\BrowserFactory.cs" />
     <Compile Include="Infrastructure\HttpFactory.cs" />
     <Compile Include="Infrastructure\LoggerFactory.cs" />
     <Compile Include="Infrastructure\DependencyResolver.cs" />
+    <Compile Include="Infrastructure\Repositories.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

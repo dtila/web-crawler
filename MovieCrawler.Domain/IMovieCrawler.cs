@@ -10,6 +10,5 @@ namespace MovieCrawler.Domain
 {
     public interface IMovieCrawler : IContentCrawler
     {
-        void AppendTo(MovieBuilder builder, BrowserPageInspectSubscription subscription);
     }
 }

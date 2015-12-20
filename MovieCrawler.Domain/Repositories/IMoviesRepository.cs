@@ -9,6 +9,7 @@ namespace MovieCrawler.Domain.Repositories
 {
     public interface IMoviesRepository
     {
-        IEnumerable<BasicMovieInfo> NewMovies(IEnumerable<BasicMovieInfo> movies);
+        IList<BasicMovieInfo> GetNewMovies(IEnumerable<BasicMovieInfo> movies);
+        void InsertMovie(MovieInfo movieInfo);
     }
 }

@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Web;
 using MovieCrawler.Domain.Data;
 using WebCrawler.Core;
+using WebCrawler.Data;
 
 namespace MovieCrawler.ApplicationServices.MovieProviders
 {
@@ -28,11 +29,6 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
 
         public BratuMarianMovieProvider()
         {
-        }
-
-        public InspectMethodType GetInspectMethod(Uri uri)
-        {
-            return InspectMethodType.None;
         }
 
         public IPageSet EnumerateFromPage(int startPage)
@@ -49,9 +45,9 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             return ParseMovieInfoAsync(builder, movie.Link);
         }
 
-        public void AppendTo(MovieBuilder builder, BrowserPageInspectSubscription subscription)
+        public void AppendTo(IContentBuilder builder)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException("A movie provider can not be added directly to a builder");
         }
 
         private static async Task ParseMovieInfoAsync(MovieBuilder builder, Uri uri)
@@ -120,7 +116,6 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
 
             return movies;
         }
-
 
 
         class SummaryMovieInfo : BasicMovieInfo

@@ -14,6 +14,7 @@ using WebCrawler.Logging;
 using WebCrawler;
 using MovieCrawler.Domain.Data;
 using WebCrawler.Core;
+using WebCrawler.Data;
 
 namespace MovieCrawler.ApplicationServices.StreamHosts
 {
@@ -45,16 +46,6 @@ namespace MovieCrawler.ApplicationServices.StreamHosts
         {
             logger = LoggerFactory.Create("videomega.tv");
             this.uri = uri;
-        }
-
-        public InspectMethodType GetInspectMethod(Uri uri)
-        {
-            return InspectMethodType.None;
-        }
-
-        public void AppendTo(MovieBuilder builder, BrowserPageInspectSubscription subscription)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<MovieStream> GetStreamSetAsync()
@@ -130,6 +121,11 @@ namespace MovieCrawler.ApplicationServices.StreamHosts
             }
 
             return builder.Uri;
+        }
+
+        public void AppendTo(IContentBuilder builder)
+        {
+            throw new NotImplementedException();
         }
     }
 }

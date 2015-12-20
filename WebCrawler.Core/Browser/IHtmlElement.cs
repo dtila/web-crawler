@@ -10,5 +10,7 @@ namespace WebCrawler.Browser
     {
         void Click();
         IHtmlElement Query(string selector);
+
+        string GetAttribute(string name);
     }
 }

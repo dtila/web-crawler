@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using WebCrawler.Core;
+using WebCrawler.Data;
 
 namespace MovieCrawler.ApplicationServices.StreamHosts
 {
@@ -28,16 +29,6 @@ namespace MovieCrawler.ApplicationServices.StreamHosts
         public VkNetworkEmbeddedVideo(Uri uri)
         {
             this.uri = uri;
-        }
-
-        public InspectMethodType GetInspectMethod(Uri uri)
-        {
-            return InspectMethodType.None;
-        }
-
-        public void AppendTo(MovieBuilder builder, BrowserPageInspectSubscription subscription)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<MovieStream> GetStreamSetAsync()
@@ -65,6 +56,11 @@ namespace MovieCrawler.ApplicationServices.StreamHosts
             if (streamSet.VideoStreams.Count == 0)
                 throw new InvalidParseElementException("Unable to determine any valid video stream");
             return streamSet;
+        }
+
+        public void AppendTo(IContentBuilder builder)
+        {
+            throw new NotImplementedException();
         }
     }
 }

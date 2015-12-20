@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Web;
 using MovieCrawler.Domain.Data;
 using WebCrawler.Core;
+using WebCrawler.Data;
 
 namespace MovieCrawler.ApplicationServices.MovieProviders
 {
@@ -26,11 +27,6 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
 
         public string Name { get { return "divxonline.ro"; } }
         
-        public InspectMethodType GetInspectMethod(Uri uri)
-        {
-            return InspectMethodType.None;
-        }
-
         public IPageSet EnumerateFromPage(int startPage)
         {
             return new Enumerator(startPage);
@@ -45,9 +41,9 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             return GetMovieInfoAsync(builder, movie.Link);
         }
 
-        public void AppendTo(MovieBuilder builder, BrowserPageInspectSubscription subscription)
+        public void AppendTo(IContentBuilder builder)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException("A movie provider can not be added directly to a builder");
         }
 
         private async Task GetMovieInfoAsync(MovieBuilder builder, Uri uri)

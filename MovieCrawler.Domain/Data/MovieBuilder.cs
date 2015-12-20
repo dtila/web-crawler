@@ -11,15 +11,18 @@ using WebCrawler.Core;
 using WebCrawler.Infrastructure;
 using WebCrawler.Logging;
 using System.Net;
+using WebCrawler.Data;
 
 namespace MovieCrawler.Domain.Data
 {
-    public class MovieBuilder
+    public class MovieBuilder : IContentBuilder
     {
         private MovieInfo movieInfo;
         private MovieBuilderPool pool;
         private List<Uri> videoStreams;
         private ILogger logger;
+        private ICrawlerFactory crawlerFactory;
+        private int waitingEvents;
 
         public event EventHandler<MovieBuildedEventArgs> OnMovieLoaded;
 
@@ -27,10 +30,12 @@ namespace MovieCrawler.Domain.Data
 
         public MovieBuilder(MovieBuilderPool pool, BasicMovieInfo basicMovieInfo)
         {
-            logger = LoggerFactory.Create("MovieBuilder (" + basicMovieInfo.Title + ")");
             this.pool = pool;
             this.videoStreams = new List<Uri>();
             this.movieInfo = new MovieInfo(basicMovieInfo);
+
+            crawlerFactory = DependencyResolver.Resolve<ICrawlerFactory>();
+            logger = LoggerFactory.Create("MovieBuilder (" + basicMovieInfo.Title + ")");
         }
 
         public void AddStream(MovieStream stream)
@@ -38,80 +43,43 @@ namespace MovieCrawler.Domain.Data
             movieInfo.Streams.Add(stream);
         }
 
-        public void Enqueue(IMovieProvider sender, Uri movieSetUri)
+        public void Enqueue(IBrowserContent content)
         {
-            // TODO: Enqueue only the browser requests
-            var factory = DependencyResolver.Resolve<IHttpFactory>();
-            var request = factory.Create(movieSetUri);
-            request.Method = "HEAD";
-            factory.GetValidResponse(request).ContinueWith(task => 
-            {
-                if (task.IsFaulted)
-                {
-                    logger.Error("The URL '{0}' has a faulted request, so it's posponed later");
-                    lock(this)
-                    { 
-                        videoStreams.Add(movieSetUri);
-                    }
-                    pool.Enqueue(movieSetUri, this);
-                    return;
-                }
-
-                CheckWebResponse(movieSetUri, task.Result);
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            pool.Enqueue(content, this);
         }
 
-        public void Enqueue(IMovieStreamHost sender, Uri uri)
+        public async Task Enqueue(ILinkScrambler scrambler)
         {
-            var result = sender.GetInspectMethod(uri);
-            //if (result == InspectMethodType.)
+            var uri = await scrambler.GetLinkAsync();
+            Enqueue(uri);
         }
 
-        private bool RawContent(IMovieCrawler sender, Uri uri, out InspectMethodType inspectType)
+        private void EnqueueCompleted()
         {
-            inspectType = sender.GetInspectMethod(uri);
-            if (inspectType == InspectMethodType.None)
-                throw new InvalidOperationException(string.Format("The crawler '{0}' can not handle the '{1}' address", sender, uri));
-
-            if ((inspectType & InspectMethodType.Browser) != 0)
-            {
-                pool.Enqueue(uri, this);
-                return false;
-            }
-
-            return true;
+            throw new NotImplementedException();
         }
 
-        private void CheckWebResponse(Uri originalUri, HttpWebResponse result)
+        public void Enqueue(Uri uri)
         {
-            //throw new NotImplementedException();
+            IContentCrawler crawler = crawlerFactory.Create(uri);
+            crawler.AppendTo(this);
         }
 
-        internal void OnPageLoaded(BrowserPageInspectSubscription pageSubscription)
+        public void Enqueue(IMovieProvider sender, Uri uri)
         {
-            var crawler = CreateMovieCrawler(pageSubscription.CurrentUri);
-            crawler.AppendTo(this, pageSubscription);
-
-            bool movieCompleted = false;
-            lock (this)
-            {
-                if (!videoStreams.Remove(pageSubscription.OriginalUri))
-                    throw new InvalidOperationException(string.Format("The '{0}' page has been loaded into builder, but is not recognised by this", pageSubscription.OriginalUri));
-                movieCompleted = videoStreams.Count == 0;
-            }
-
-            if (movieCompleted)
-                RaiseMovieLoaded();
+            IContentCrawler crawler = crawlerFactory.Create(uri);
+            crawler.AppendTo(this);
+            EnqueueCompleted();
         }
 
-        private static IMovieCrawler CreateMovieCrawler(Uri uri)
-        {
-            var crawler = DependencyResolver.Resolve<ICrawlerFactory>().Create(uri);
-            var crawler_ = crawler as IMovieCrawler;
-            if (crawler_ == null)
-                throw new InvalidCastException("Unable to dispatch to '" + crawler + "' because is not a movie crawler");
-            return crawler_;
-        }
+        //private static IMovieCrawler CreateMovieCrawler(Uri uri)
+        //{
+        //    var crawler = DependencyResolver.Resolve<ICrawlerFactory>().Create(uri);
+        //    var crawler_ = crawler as IMovieCrawler;
+        //    if (crawler_ == null)
+        //        throw new InvalidCastException("Unable to dispatch to '" + crawler + "' because is not a movie crawler");
+        //    return crawler_;
+        //}
 
         private void RaiseMovieLoaded()
         {

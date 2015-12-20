@@ -49,11 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationServices.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="HtmlHelpers.cs" />
     <Compile Include="HttpExtensions.cs" />
     <Compile Include="Infrastructure\CrawlerFactory.cs" />
     <Compile Include="LinkScramblers\AdFlyLinkScrambler.cs" />
+    <Compile Include="StreamHosts\OkRuStreamHost.cs" />
     <Compile Include="StreamHosts\VideoMailRuEmbeddedVideo.cs" />
     <Compile Include="StreamHosts\VideoMegaEmbeddedVideo.cs" />
     <Compile Include="StreamHosts\VkNetworkEmbeddedVideo.cs" />
