@@ -9,10 +9,13 @@ namespace WebCrawler.Data
 {
     public interface IContentBuilder
     {
-        //Task Enqueue(Uri uri);
-
         void Enqueue(IBrowserContent content);
 
         Task Enqueue(ILinkScrambler scrambler);
+    }
+
+    public interface IContentBuilder<in TType> where TType : IContent
+    {
+        Task Enqueue(TType type);
     }
 }
