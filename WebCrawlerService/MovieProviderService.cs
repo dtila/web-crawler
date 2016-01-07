@@ -1,5 +1,5 @@
 ﻿using MovieCrawler.Core;
-using MovieCrawler.Domain.Data;
+using MovieCrawler.Domain.Builder;
 using System;
 using System.Collections.Generic;
 using System.Linq;

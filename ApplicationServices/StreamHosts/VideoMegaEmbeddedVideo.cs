@@ -6,15 +6,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
-using MovieCrawler.ApplicationServices.Contracts;
 using Newtonsoft.Json.Linq;
 using MovieCrawler.Domain.Model;
 using MovieCrawler.Domain;
 using WebCrawler.Logging;
 using WebCrawler;
-using MovieCrawler.Domain.Data;
-using WebCrawler.Core;
-using WebCrawler.Data;
+using MovieCrawler.Domain.Builder;
+using WebCrawler.Content.Builder;
 
 namespace MovieCrawler.ApplicationServices.StreamHosts
 {

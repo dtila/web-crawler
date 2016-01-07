@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieCrawler.Domain
+namespace MovieCrawler.Domain.Builder
 {
     public class InvalidDOMStructureException : Exception
     {

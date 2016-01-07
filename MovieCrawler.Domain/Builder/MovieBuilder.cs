@@ -1,5 +1,4 @@
-﻿using MovieCrawler.ApplicationServices.Contracts;
-using MovieCrawler.Core;
+﻿using MovieCrawler.Core;
 using MovieCrawler.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -7,15 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebCrawler;
-using WebCrawler.Core;
 using WebCrawler.Infrastructure;
 using WebCrawler.Logging;
 using System.Net;
 using WebCrawler.Data;
+using WebCrawler.Content.Builder;
+using WebCrawler.Content;
 
-namespace MovieCrawler.Domain.Data
+namespace MovieCrawler.Domain.Builder
 {
-    public class MovieBuilder : IContentBuilder
+    public class MovieBuilder : IMovieBuilder
     {
         private MovieInfo movieInfo;
         private MovieBuilderPool pool;
@@ -48,7 +48,7 @@ namespace MovieCrawler.Domain.Data
             pool.Enqueue(content, this);
         }
 
-        public async Task Enqueue(ILinkScrambler scrambler)
+        public async Task Enqueue(ILinkUnscrambler scrambler)
         {
             var uri = await scrambler.GetLinkAsync();
             Enqueue(uri);

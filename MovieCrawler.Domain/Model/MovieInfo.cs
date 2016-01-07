@@ -4,7 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebCrawler.Data;
+using WebCrawler.Content;
+using WebCrawler.Content.Builder;
 
 namespace MovieCrawler.Domain.Model
 {

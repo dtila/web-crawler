@@ -1,18 +1,18 @@
-﻿using MovieCrawler.ApplicationServices.Contracts;
-using MovieCrawler.Domain;
-using MovieCrawler.Domain.Data;
+﻿using MovieCrawler.Domain;
+using MovieCrawler.Domain.Builder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using WebCrawler.Core;
+using WebCrawler.Browser;
+using WebCrawler.Content.Builder;
 using WebCrawler.Data;
 
 namespace MovieCrawler.ApplicationServices.LinkScramblers
 {
-    class AdFlyLinkScrambler : ILinkScrambler
+    class AdFlyLinkScrambler : ILinkUnscrambler
     {
         private Uri uri;
         private IContentBuilder builder;
@@ -28,7 +28,7 @@ namespace MovieCrawler.ApplicationServices.LinkScramblers
         {
             if (builder == null)
                 throw new InvalidOperationException("AdFly scrambler must be added to a content builder before obtaining a link");
-            builder.Enqueue(new BrowserContentRequest(uri, GetHostedLinkAsync));
+            builder.Enqueue(new DelegatedBrowserContentRequest(uri, GetHostedLinkAsync));
             return taskCompletionSource.Task;
         }
 

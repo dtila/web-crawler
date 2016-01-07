@@ -8,10 +8,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using WebCrawler;
 using WebCrawler.Browser;
+using WebCrawler.Content;
+using WebCrawler.Content.Builder;
 using WebCrawler.Data;
 using WebCrawler.Logging;
 
-namespace MovieCrawler.Domain.Data
+namespace MovieCrawler.Domain.Builder
 {
     public class MovieBuilderPool
     {

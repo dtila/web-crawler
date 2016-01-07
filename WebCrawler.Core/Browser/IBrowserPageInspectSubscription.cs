@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebCrawler.Browser;
+using WebCrawler.Content.Builder;
 
-namespace WebCrawler.Data
+namespace WebCrawler.Browser
 {
     public interface IBrowserPageInspectSubscription
     {

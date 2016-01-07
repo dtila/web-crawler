@@ -5,10 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using MovieCrawler.Domain.Data;
 using MovieCrawler.Domain.Model;
-using WebCrawler.Core;
-using WebCrawler.Data;
+using WebCrawler.Content.Builder;
+using MovieCrawler.Domain.Builder;
 
 namespace MovieCrawler.ApplicationServices.MovieProviders
 {
@@ -26,7 +25,7 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             throw new NotImplementedException();
         }
 
-        public Task AddToBuilder(MovieBuilder builder, BasicMovieInfo movie)
+        public Task AddToBuilder(IMovieBuilder builder, BasicMovieInfo movie)
         {
             throw new NotImplementedException();
         }

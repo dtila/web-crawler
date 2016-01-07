@@ -1,5 +1,5 @@
 ﻿using MovieCrawler.Core;
-using MovieCrawler.Domain.Data;
+using MovieCrawler.Domain.Builder;
 using MovieCrawler.Domain.Model;
 using MovieCrawler.Domain.Repositories;
 using System;

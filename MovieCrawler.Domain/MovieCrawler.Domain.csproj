@@ -39,13 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builder\IMovieBuilder.cs" />
     <Compile Include="Collections\SyncronizedEnumerator.cs" />
     <Compile Include="CrawlerService.cs" />
-    <Compile Include="Data\BrowserContentRequest.cs" />
-    <Compile Include="Data\MovieBuilder.cs" />
-    <Compile Include="Data\MovieBuilderPool.cs" />
-    <Compile Include="Exceptions\InvalidDOMStructureException.cs" />
-    <Compile Include="Exceptions\InvalidParseElement.cs" />
+    <Compile Include="Builder\MovieBuilder.cs" />
+    <Compile Include="Builder\MovieBuilderPool.cs" />
+    <Compile Include="Builder\InvalidDOMStructureException.cs" />
+    <Compile Include="Builder\InvalidParseElement.cs" />
     <Compile Include="IMovieCrawler.cs" />
     <Compile Include="IMovieProvider.cs" />
     <Compile Include="IMovieStreamHost.cs" />

@@ -1,5 +1,5 @@
 ﻿using MovieCrawler.Domain;
-using MovieCrawler.Domain.Data;
+using MovieCrawler.Domain.Builder;
 using MovieCrawler.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace MovieCrawler.Core
     {
         string Name { get; }
 
-        Task AddToBuilder(MovieBuilder builder, BasicMovieInfo movie);
+        Task AddToBuilder(IMovieBuilder builder, BasicMovieInfo movie);
 
         /// <summary>
         /// Enumerate the movies from the current provider starting with the specified page. 

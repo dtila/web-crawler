@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebCrawler.Core;
-using WebCrawler.Infrastructure;
+using WebCrawler.Content.Builder;
 
 namespace MovieCrawler.ApplicationServices.Infrastructure
 {
@@ -26,6 +25,7 @@ namespace MovieCrawler.ApplicationServices.Infrastructure
                     if (uri.LocalPath.Equals("/iframe.php", StringComparison.InvariantCultureIgnoreCase))
                         return new VideoMegaEmbeddedVideo(uri);
                     throw new NotImplementedException(string.Format("Unable to create a crawler in the domain 'videomega.tv' for the path '{0}'", uri.LocalPath));
+                case "ok.ru": return new OkRuStreamHost(uri);
 
                 /// Link scrambler
                 case "adf.ly": return new AdFlyLinkScrambler(uri);

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebCrawler
+namespace WebCrawler.Content
 {
-    public interface IHttpResponseMonitor
+    public interface IContent
     {
-        void Success(Uri uri, Uri proxyUri);
-        void Fail(Uri uri);
+        Uri Uri { get; }
     }
 }

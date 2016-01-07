@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebCrawler.Core;
 
-namespace MovieCrawler.ApplicationServices.Contracts
+namespace MovieCrawler.Domain
 {
     public interface IMovieStreamHost : IMovieCrawler
     {

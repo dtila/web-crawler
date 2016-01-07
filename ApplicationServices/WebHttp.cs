@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using WebCrawler;
+using WebCrawler.Diagnostics;
 using WebCrawler.Infrastructure;
 using WebCrawler.Logging;
 

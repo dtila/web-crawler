@@ -1,17 +1,15 @@
 ﻿using MovieCrawler.ApplicationServices;
 using MovieCrawler.Core;
 using MovieCrawler.Domain;
+using MovieCrawler.Domain.Builder;
 using MovieCrawler.Domain.Collections;
 using MovieCrawler.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using MovieCrawler.Domain.Data;
-using WebCrawler.Core;
-using WebCrawler.Data;
+using WebCrawler.Content.Builder;
 
 namespace MovieCrawler.ApplicationServices.MovieProviders
 {
@@ -31,7 +29,7 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             return new Enumerator(startPage);
         }
 
-        public Task AddToBuilder(MovieBuilder builder, BasicMovieInfo movie)
+        public Task AddToBuilder(IMovieBuilder builder, BasicMovieInfo movie)
         {
             var movieInfo = movie as SummaryMovieInfo;
             if (movieInfo == null)
@@ -44,7 +42,7 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             throw new NotSupportedException("A movie provider can not be added directly to a builder");
         }
 
-        private async Task Build(MovieBuilder builder, Uri uri)
+        private async Task Build(IMovieBuilder builder, Uri uri)
         {
             var html = await WebHttp.GetHtmlDocument(uri);
 

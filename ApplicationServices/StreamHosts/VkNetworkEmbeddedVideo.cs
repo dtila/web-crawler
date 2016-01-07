@@ -1,6 +1,5 @@
-﻿using MovieCrawler.ApplicationServices.Contracts;
-using MovieCrawler.Domain;
-using MovieCrawler.Domain.Data;
+﻿using MovieCrawler.Domain;
+using MovieCrawler.Domain.Builder;
 using MovieCrawler.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -9,8 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using WebCrawler.Core;
-using WebCrawler.Data;
+using WebCrawler.Content.Builder;
 
 namespace MovieCrawler.ApplicationServices.StreamHosts
 {

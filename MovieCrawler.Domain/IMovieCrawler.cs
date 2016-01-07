@@ -1,10 +1,9 @@
-﻿using MovieCrawler.Domain.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebCrawler.Core;
+using WebCrawler.Content.Builder;
 
 namespace MovieCrawler.Domain
 {

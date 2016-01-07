@@ -1,4 +1,5 @@
 ﻿using MovieCrawler.Domain;
+using MovieCrawler.Domain.Builder;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

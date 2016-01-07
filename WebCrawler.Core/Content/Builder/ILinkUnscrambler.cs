@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace WebCrawler.Core
+namespace WebCrawler.Content.Builder
 {
-    public interface ILinkScrambler : IContentCrawler
+    public interface ILinkUnscrambler : IContentCrawler
     {
         Task<Uri> GetLinkAsync();
     }

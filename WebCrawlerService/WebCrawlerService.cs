@@ -17,9 +17,9 @@ using Contracts.DTA;
 using ProxyProviderLibrary;
 using WebCrawler;
 using MovieCrawler.Core;
-using MovieCrawler.Domain.Data;
 using ProxyProviderLibrary.Data;
 using MovieCrawler.Domain;
+using MovieCrawler.Domain.Builder;
 
 namespace WebCrawlerService
 {

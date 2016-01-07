@@ -5,18 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using WebCrawler.Data;
 
-namespace WebCrawler.Core
+namespace WebCrawler.Content.Builder
 {
     public interface IContentCrawler
     {
         void AppendTo(IContentBuilder builder);
-    }
-
-    [Flags]
-    public enum InspectMethodType
-    {
-        None = 0,
-        Raw = 1,
-        Browser = 2
     }
 }

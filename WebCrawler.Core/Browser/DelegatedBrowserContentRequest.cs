@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebCrawler.Content;
 using WebCrawler.Data;
 
-namespace MovieCrawler.Domain.Data
+namespace WebCrawler.Browser
 {
     public delegate Task BrowserContentRequestCallback(IBrowserPageInspectSubscription subsciption);
 
-    public class BrowserContentRequest : IBrowserContent
+    public class DelegatedBrowserContentRequest : IBrowserContent
     {
         private BrowserContentRequestCallback pageSubscription;
 
         public Uri Uri { get; private set; }
 
-        public BrowserContentRequest(Uri uri, BrowserContentRequestCallback callback)
+        public DelegatedBrowserContentRequest(Uri uri, BrowserContentRequestCallback callback)
         {
             this.Uri = uri;
             this.pageSubscription = callback;
