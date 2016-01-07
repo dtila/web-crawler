@@ -9,8 +9,8 @@
     <ProjectGuid>{DC9AF4C2-BC28-4A16-9291-AEE2DB4266DC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MovieHtmlParser</RootNamespace>
-    <AssemblyName>MovieHtmlParser</AssemblyName>
+    <RootNamespace>MovieCrawler.ConsoleTester</RootNamespace>
+    <AssemblyName>MovieCrawler.ConsoleTester</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

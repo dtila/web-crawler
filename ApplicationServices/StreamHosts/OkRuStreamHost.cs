@@ -19,11 +19,15 @@ namespace MovieCrawler.ApplicationServices.StreamHosts
             this.uri = uri;
         }
 
-        public void AppendTo(IContentBuilder builder)
+        public void AppendTo(IMovieBuilder builder)
         {
-            var movieBuilder = builder as MovieBuilder;
             // TODO: here we have the URI and the builder and we should add a stream
             //movieBuilder.Enqueue(this, uri);
+        }
+
+        public void AppendTo(IContentBuilder builder)
+        {
+            throw new NotSupportedException();
         }
 
         public Task<MovieStream> GetStreamSetAsync()

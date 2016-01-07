@@ -56,6 +56,11 @@ namespace MovieCrawler.ApplicationServices.StreamHosts
             return streamSet;
         }
 
+        public void AppendTo(IMovieBuilder builder)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AppendTo(IContentBuilder builder)
         {
             throw new NotImplementedException();

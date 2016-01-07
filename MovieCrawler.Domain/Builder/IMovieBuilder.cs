@@ -15,7 +15,11 @@ namespace MovieCrawler.Domain.Builder
 
         void AddStream(MovieStream stream);
 
-
         void Enqueue(IMovieProvider sender, Uri uri);
+    }
+
+    public interface IMovieBuilderReference : IDisposable
+    {
+        
     }
 }

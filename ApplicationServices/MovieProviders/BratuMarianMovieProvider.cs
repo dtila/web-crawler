@@ -114,6 +114,10 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             return movies;
         }
 
+        public void AppendTo(IMovieBuilder builder)
+        {
+            throw new NotImplementedException();
+        }
 
         class SummaryMovieInfo : BasicMovieInfo
         {

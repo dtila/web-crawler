@@ -20,6 +20,11 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             get { return "RadioFly"; }
         }
 
+        public void AppendTo(IMovieBuilder builder)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AppendTo(IContentBuilder builder)
         {
             throw new NotImplementedException();

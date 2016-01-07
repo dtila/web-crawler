@@ -62,13 +62,16 @@ namespace MovieCrawler.Domain.Builder
         public void Enqueue(Uri uri)
         {
             IContentCrawler crawler = crawlerFactory.Create(uri);
-            crawler.AppendTo(this);
+            var movieCrawler = crawler as IMovieCrawler;
+            if (movieCrawler != null)
+                movieCrawler.AppendTo(this);
+            else
+                crawler.AppendTo(this);
         }
 
         public void Enqueue(IMovieProvider sender, Uri uri)
         {
-            IContentCrawler crawler = crawlerFactory.Create(uri);
-            crawler.AppendTo(this);
+            Enqueue(uri);
             EnqueueCompleted();
         }
 

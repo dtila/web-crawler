@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MovieCrawler.Domain.Builder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,6 @@ namespace MovieCrawler.Domain
 {
     public interface IMovieCrawler : IContentCrawler
     {
+        void AppendTo(IMovieBuilder builder);
     }
 }

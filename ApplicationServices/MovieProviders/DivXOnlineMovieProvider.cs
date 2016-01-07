@@ -38,6 +38,11 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             return GetMovieInfoAsync(builder, movie.Link);
         }
 
+        public void AppendTo(IMovieBuilder builder)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AppendTo(IContentBuilder builder)
         {
             throw new NotSupportedException("A movie provider can not be added directly to a builder");
