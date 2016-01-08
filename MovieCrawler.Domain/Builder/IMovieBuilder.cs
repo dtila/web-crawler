@@ -13,13 +13,17 @@ namespace MovieCrawler.Domain.Builder
     {
         MovieInfo MovieInfo { get; }
 
-        void AddStream(MovieStream stream);
+        IMovieBuilderAsyncOperation BeginOperation();
 
         void Enqueue(IMovieProvider sender, Uri uri);
     }
 
-    public interface IMovieBuilderReference : IDisposable
+    /// <summary>
+    /// Keep a reference to a <see cref="IMovieBuilder"/>
+    /// A reference to a builder denotes that there is a pending 
+    /// </summary>
+    public interface IMovieBuilderAsyncOperation : IDisposable
     {
-        
+        IMovieBuilder Builder { get; }
     }
 }

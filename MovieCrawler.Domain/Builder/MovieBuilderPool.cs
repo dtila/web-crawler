@@ -25,9 +25,10 @@ namespace MovieCrawler.Domain.Builder
         private IBrowserFactory browserFactory;
         private ILogger logger;
 
-        public MovieBuilderPool()
+        public MovieBuilderPool(IBrowserFactory browserFactory)
         {
-            browserFactory = DependencyResolver.Resolve<IBrowserFactory>();
+            this.browserFactory = browserFactory;
+
             logger = LoggerFactory.Create("MovieBuilderPool");
 
             availableWorkers = new ConcurrentQueue<IBrowser>();

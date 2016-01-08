@@ -88,7 +88,6 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
 
                 streamSet.VideoStreams.Add(new VideoStream { AVStream = avstream });
                 movieInfo.Streams.Add(streamSet);
-                builder.AddStream(streamSet);
             }
         }
 
@@ -100,13 +99,11 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
             {
                 var link = film.GetAttributeValue("href", null);
 
-                var titleElement = film.SelectSingleNode("img");
-                if (titleElement == null)
-                    throw new InvalidParseElementException("img");
+                var titleElement = film.SelectSingleNode("img").ThrowExceptionIfTitleNotExists();
 
                 var title = HttpUtility.HtmlDecode(titleElement.GetAttributeValue("alt", null));
-                if (title == null)
-                    throw new InvalidParseElementException("alt attribute");
+                if (string.IsNullOrEmpty(title))
+                    throw new ArgumentException("The alt attribute of the title is null or empty");
 
                 movies.Add(new SummaryMovieInfo(title, new Uri(link)));
             }

@@ -27,13 +27,13 @@ namespace MovieCrawler.ApplicationServices.StreamHosts
         public VkNetworkEmbeddedVideo(Uri uri)
         {
             this.uri = uri;
+            
+            if (!uri.LocalPath.Equals("/video_ext.php", StringComparison.InvariantCultureIgnoreCase))
+                throw new ArgumentException("The specified URI is not a VkNetwork embedded video");
         }
 
         public async Task<MovieStream> GetStreamSetAsync()
         {
-            if (!uri.LocalPath.Equals("/video_ext.php", StringComparison.InvariantCultureIgnoreCase))
-                throw new InvalidParseElementException("Not a VkNetwork embedded video!");
-
             var html = await WebHttp.GetHtmlDocument(uri);
 
             var flashEmbedded = html.GetElementbyId("flash_video_obj");
@@ -52,7 +52,7 @@ namespace MovieCrawler.ApplicationServices.StreamHosts
             }
 
             if (streamSet.VideoStreams.Count == 0)
-                throw new InvalidParseElementException("Unable to determine any valid video stream");
+                throw new ArgumentException("Unable to determine any valid video stream");
             return streamSet;
         }
 

@@ -103,7 +103,7 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
 
                 var pagesMatch = SharedRegex.EnglishPageMatchRegex.Match(pagesElement.InnerText);
                 if (!pagesMatch.Success)
-                    throw new InvalidParseElementException("Unable to determine the pages count");
+                    throw new ArgumentException("Unable to determine the pages count from text '" + pagesElement.InnerText + "'");
 
                 SetTotalPages(int.Parse(pagesMatch.Groups[2].Value));
                 return movies;
