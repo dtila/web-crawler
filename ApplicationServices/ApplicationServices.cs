@@ -1,4 +1,5 @@
 ﻿using MovieCrawler.ApplicationServices.Infrastructure;
+using MovieCrawler.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

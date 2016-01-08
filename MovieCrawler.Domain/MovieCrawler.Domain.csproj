@@ -45,7 +45,7 @@
     <Compile Include="Builder\MovieBuilder.cs" />
     <Compile Include="Builder\MovieBuilderPool.cs" />
     <Compile Include="Builder\InvalidDOMStructureException.cs" />
-    <Compile Include="Builder\InvalidDOMValueException.cs" />
+    <Compile Include="Builder\InvalidElementValueException.cs" />
     <Compile Include="IMovieCrawler.cs" />
     <Compile Include="IMovieProvider.cs" />
     <Compile Include="IMovieStreamHost.cs" />

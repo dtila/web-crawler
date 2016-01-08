@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace MovieCrawler.Domain.Builder
 {
-    public class InvalidParseElementException : Exception
+    public class InvalidElementValueException : Exception
     {
-        public InvalidParseElementException()
+        public InvalidElementValueException()
             : base("")
         {
 
         }
 
-        public InvalidParseElementException(string xpath)
-            : base(string.Format("{0}", xpath))
+        public InvalidElementValueException(string xpath)
+            : base(xpath)
         {
 
         }

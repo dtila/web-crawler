@@ -25,9 +25,9 @@ namespace MovieCrawler.Domain.Builder
         private IBrowserFactory browserFactory;
         private ILogger logger;
 
-        public MovieBuilderPool(IBrowserFactory browserFactory)
+        public MovieBuilderPool()
         {
-            this.browserFactory = browserFactory;
+            this.browserFactory = DependencyResolver.Resolve<IBrowserFactory>();
 
             logger = LoggerFactory.Create("MovieBuilderPool");
 

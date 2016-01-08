@@ -12,6 +12,7 @@ using System.Net;
 using WebCrawler.Data;
 using WebCrawler.Content.Builder;
 using WebCrawler.Content;
+using System.Threading;
 
 namespace MovieCrawler.Domain.Builder
 {
@@ -33,14 +34,10 @@ namespace MovieCrawler.Domain.Builder
             this.pool = pool;
             this.videoStreams = new List<Uri>();
             this.movieInfo = new MovieInfo(basicMovieInfo);
+            this.waitingEvents = 0;
 
             crawlerFactory = DependencyResolver.Resolve<ICrawlerFactory>();
             logger = LoggerFactory.Create("MovieBuilder (" + basicMovieInfo.Title + ")");
-        }
-
-        public void AddStream(MovieStream stream)
-        {
-            movieInfo.Streams.Add(stream);
         }
 
         public void Enqueue(IBrowserContent content)
@@ -54,9 +51,9 @@ namespace MovieCrawler.Domain.Builder
             Enqueue(uri);
         }
 
-        private void EnqueueCompleted()
+        public IMovieBuilderAsyncOperation BeginOperation()
         {
-            throw new NotImplementedException();
+            return new PendingBuildAsyncOperation(this);
         }
 
         public void Enqueue(Uri uri)
@@ -75,14 +72,10 @@ namespace MovieCrawler.Domain.Builder
             EnqueueCompleted();
         }
 
-        //private static IMovieCrawler CreateMovieCrawler(Uri uri)
-        //{
-        //    var crawler = DependencyResolver.Resolve<ICrawlerFactory>().Create(uri);
-        //    var crawler_ = crawler as IMovieCrawler;
-        //    if (crawler_ == null)
-        //        throw new InvalidCastException("Unable to dispatch to '" + crawler + "' because is not a movie crawler");
-        //    return crawler_;
-        //}
+        private void EnqueueCompleted()
+        {
+            throw new NotImplementedException();
+        }
 
         private void RaiseMovieLoaded()
         {
@@ -103,6 +96,27 @@ namespace MovieCrawler.Domain.Builder
             if (h != null)
                 h(this, new MovieBuildedEventArgs(movieInfo));
         }
+
+
+        private class PendingBuildAsyncOperation : IMovieBuilderAsyncOperation
+        {
+            private MovieBuilder builder;
+
+            public PendingBuildAsyncOperation(MovieBuilder builder)
+            {
+                this.builder = builder;
+                Interlocked.Increment(ref builder.waitingEvents);
+            }
+
+            public IMovieBuilder Builder { get { return builder; } }
+
+            public void Dispose()
+            {
+                if (Interlocked.Decrement(ref builder.waitingEvents) == 0)
+                    builder.RaiseMovieLoaded();
+            }
+        }
+
     }
 
     public class MovieBuildedEventArgs : EventArgs
