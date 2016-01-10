@@ -1,5 +1,4 @@
 ﻿using MovieCrawler.ApplicationServices.MovieProviders;
-using MovieCrawler.ConsoleTester.Infrastructure.Chromium;
 using MovieCrawler.Core;
 using MovieCrawler.Domain;
 using MovieCrawler.Domain.Repositories;
@@ -18,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebCrawler;
 using WebCrawler.Browser;
+using WebCrawler.Browser.Chromium;
 using WebCrawler.Infrastructure;
 
 namespace MovieHtmlParser
@@ -33,7 +33,8 @@ namespace MovieHtmlParser
 
             DependencyResolver.Register<IMovieProvider>(new FilmeOnline2013MovieProvider());
 
-            DependencyResolver.Register<IBrowserFactory>(new Infrastructure.BrowserFactory());
+            DependencyResolver.Register<IBrowserFactory>(new ChromiumBrowserFactory());
+            //DependencyResolver.Register<IBrowserFactory>(new Infrastructure.BrowserFactory());
 
             MovieCrawler.ApplicationServices.ApplicationServices.Init();
         }
@@ -41,9 +42,9 @@ namespace MovieHtmlParser
         [STAThread]
         static void Main(string[] args)
         {
-            var factory = new ChroumiumBrowserFactory();
-            var browser = factory.Create();
-            //browser.Navigate(new Uri("http://google.ro"));
+            var browser = new ChromiumBrowserFactory().Create();
+            browser.Navigate(new Uri("http://google.ro")).Wait();
+            var x = browser.Page.Root.Query("#hplogo").GetAttribute("align");
 
             //Download().Wait();
             //TestProvider().Wait();

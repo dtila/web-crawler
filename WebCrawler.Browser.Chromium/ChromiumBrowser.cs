@@ -8,7 +8,7 @@ using CefSharp;
 using IBrowser = WebCrawler.Browser.IBrowser;
 using System.Threading;
 
-namespace MovieCrawler.ConsoleTester.Infrastructure.Chromium
+namespace WebCrawler.Browser.Chromium
 {
     class ChromiumBrowser : IBrowser
     {
@@ -28,8 +28,8 @@ namespace MovieCrawler.ConsoleTester.Infrastructure.Chromium
         private void Browser_BrowserInitialized(object sender, EventArgs e)
         {
             browser.BrowserInitialized -= Browser_BrowserInitialized;
-            initializeEvent.Set();
             page = new ChromiumPage(browser);
+            initializeEvent.Set();
         }
 
         public IBrowserPage Page

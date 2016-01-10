@@ -1,13 +1,15 @@
 ﻿using CefSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebCrawler.Browser;
 
-namespace MovieCrawler.ConsoleTester.Infrastructure.Chromium
+namespace WebCrawler.Browser.Chromium
 {
+    [DebuggerDisplay("ChromiumPage")]
     class ChromiumPage : IBrowserPage
     {
         private CefSharp.IWebBrowser webBrowser;
@@ -41,7 +43,7 @@ namespace MovieCrawler.ConsoleTester.Infrastructure.Chromium
                 get;
             }
 
-            public async void Click()
+            public void Click()
             {
                 var handler = GetEvaluatingPath() + ".click()";
                 webBrowser.ExecuteScriptAsync(handler);
@@ -50,13 +52,15 @@ namespace MovieCrawler.ConsoleTester.Infrastructure.Chromium
             public string GetAttribute(string name)
             {
                 var handler = GetEvaluatingPath() + ".getAttribute('" + name + "')";
-                webBrowser.ExecuteScriptAsync(handler);
-                return null;
+                var result = webBrowser.EvaluateScriptAsync(handler).Result;
+                if (!result.Success)
+                    throw new InvalidOperationException(string.Format("Unable to get the attribute with the name {0} on the element", name));
+                return result.Result.ToString();
             }
 
             public IHtmlElement Query(string selector)
             {
-                return new DescendantHtmlElement(selector, this);
+                return new DescendantHtmlElement(selector, webBrowser, this);
             }
 
             private string GetEvaluatingPath()
@@ -71,6 +75,11 @@ namespace MovieCrawler.ConsoleTester.Infrastructure.Chromium
                 }
 
                 return sb.ToString();
+            }
+
+            public override string ToString()
+            {
+                return GetEvaluatingPath();
             }
         }
 

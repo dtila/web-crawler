@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using WebCrawler.Browser;
 using IBrowser = WebCrawler.Browser.IBrowser;
 
-namespace MovieCrawler.ConsoleTester.Infrastructure.Chromium
+namespace WebCrawler.Browser.Chromium
 {
-    class ChroumiumBrowserFactory : IBrowserFactory
+    public class ChromiumBrowserFactory : IBrowserFactory
     {
-        static ChroumiumBrowserFactory()
+        static ChromiumBrowserFactory()
         {
             Cef.Initialize(new CefSettings() { MultiThreadedMessageLoop = true, WindowlessRenderingEnabled = true });
         }

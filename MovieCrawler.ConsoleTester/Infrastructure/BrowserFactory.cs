@@ -7,7 +7,7 @@ using WebCrawler.Browser;
 
 namespace MovieHtmlParser.Infrastructure
 {
-    class BrowserFactory : IBrowserFactory
+    class NullBrowserFactory : IBrowserFactory
     {
         public IBrowser Create()
         {
