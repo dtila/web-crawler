@@ -90,6 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\BrowserFactory.cs" />
+    <Compile Include="Infrastructure\Chromium\ChromiumBrowser.cs" />
+    <Compile Include="Infrastructure\Chromium\ChromiumBrowserFactory.cs" />
+    <Compile Include="Infrastructure\Chromium\ChromiumPage.cs" />
     <Compile Include="Infrastructure\HttpFactory.cs" />
     <Compile Include="Infrastructure\LoggerFactory.cs" />
     <Compile Include="Infrastructure\DependencyResolver.cs" />

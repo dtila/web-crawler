@@ -74,7 +74,6 @@ namespace MovieCrawler.Domain.Builder
 
         private void EnqueueCompleted()
         {
-            throw new NotImplementedException();
         }
 
         private void RaiseMovieLoaded()

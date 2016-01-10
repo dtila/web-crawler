@@ -1,4 +1,5 @@
 ﻿using MovieCrawler.ApplicationServices.MovieProviders;
+using MovieCrawler.ConsoleTester.Infrastructure.Chromium;
 using MovieCrawler.Core;
 using MovieCrawler.Domain;
 using MovieCrawler.Domain.Repositories;
@@ -40,7 +41,11 @@ namespace MovieHtmlParser
         [STAThread]
         static void Main(string[] args)
         {
-            Download().Wait();
+            var factory = new ChroumiumBrowserFactory();
+            var browser = factory.Create();
+            //browser.Navigate(new Uri("http://google.ro"));
+
+            //Download().Wait();
             //TestProvider().Wait();
             Console.ReadLine();
         }
