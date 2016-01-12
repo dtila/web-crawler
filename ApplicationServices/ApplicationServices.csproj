@@ -56,6 +56,7 @@
     <Compile Include="Infrastructure\CrawlerFactory.cs" />
     <Compile Include="LinkScramblers\AdFlyLinkScrambler.cs" />
     <Compile Include="StreamHosts\OkRuStreamHost.cs" />
+    <Compile Include="StreamHosts\SuperWeb.cs" />
     <Compile Include="StreamHosts\VideoMailRuEmbeddedVideo.cs" />
     <Compile Include="StreamHosts\VideoMegaEmbeddedVideo.cs" />
     <Compile Include="StreamHosts\VkNetworkEmbeddedVideo.cs" />

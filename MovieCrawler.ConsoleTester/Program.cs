@@ -42,11 +42,11 @@ namespace MovieHtmlParser
         [STAThread]
         static void Main(string[] args)
         {
-            var browser = new ChromiumBrowserFactory().Create();
-            browser.Navigate(new Uri("http://google.ro")).Wait();
-            var x = browser.Page.Root.Query("#hplogo").GetAttribute("align");
+            //var browser = new ChromiumBrowserFactory().Create();
+            //browser.Navigate(new Uri("http://google.ro")).Wait();
+            //var x = browser.Page.Root.Query("#hplogo").GetAttribute("align");
 
-            //Download().Wait();
+            Download().Wait();
             //TestProvider().Wait();
             Console.ReadLine();
         }
