@@ -153,7 +153,7 @@ namespace MovieCrawler.Domain.Builder
 
         internal void Inspect()
         {
-            request.Fullfill(this);
+            request.Fulfill(this);
         }
 
         public void Dispose()
