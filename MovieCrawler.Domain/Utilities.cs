@@ -76,7 +76,7 @@ namespace MovieCrawler.Domain
             else if (category.EqualsIgnoreCase("fantezie")) genre = MovieGenre.Fantesy;
             else if (category.EqualsIgnoreCase("groaza")) genre = MovieGenre.Horror;
             else if (category.EqualsIgnoreCase("istoric")) genre = MovieGenre.History;
-            else if (category.EqualsIgnoreCase("mister")) genre = MovieGenre.Mistery;
+            else if (category.EqualsIgnoreCase("mister")) genre = MovieGenre.Mystery;
             else if (category.EqualsIgnoreCase("muzical")) genre = MovieGenre.Musical;
             else if (category.EqualsIgnoreCase("razboi")) genre = MovieGenre.War;
             else if (category.EqualsIgnoreCase("romantic")) genre = MovieGenre.Romantic;
