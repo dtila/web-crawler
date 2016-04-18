@@ -88,7 +88,7 @@ namespace MovieCrawler.ApplicationServices.MovieProviders
                 var img = movieDiv.SelectSingleNode("a/img").ThrowExceptionIfNotExists("Unable to find a/img element");
 
                 var link = aelement.GetAttributeValue("href", null);
-                var title = img.GetAttributeValue("alt", null).Substring(7); // lenght of (poster )
+                var title = img.GetAttributeValue("alt", null).Substring(7); // length of (poster )
                 moviesCollection.Add(new SummaryMovieInfo(title, new Uri(link)));
             }
 
