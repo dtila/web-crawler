@@ -22,7 +22,7 @@ namespace WebCrawler.Browser
             this.pageSubscription = callback;
         }
 
-        public async void Fullfill(IBrowserPageInspectSubscription subscription)
+        public async void Fulfill(IBrowserPageInspectSubscription subscription)
         {
             await pageSubscription(subscription);
         }
