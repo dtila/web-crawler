@@ -9,6 +9,6 @@ namespace WebCrawler.Content
 {
     public interface IBrowserContent : IContent
     {
-        void Fullfill(IBrowserPageInspectSubscription subscription);
+        void Fulfill(IBrowserPageInspectSubscription subscription);
     }
 }
