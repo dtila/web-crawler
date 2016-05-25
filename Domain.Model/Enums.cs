@@ -41,7 +41,7 @@ namespace MovieCrawler.ApplicationServices.Domain.Model
         // Film fara categorie ???
         Horror = 1 << 12,
         History = 1 << 13,
-        Mistery = 1 << 14,
+        Mystery = 1 << 14,
         Musical = 1 << 15,
         War = 1 << 16,
         Romantic = 1 << 17,
